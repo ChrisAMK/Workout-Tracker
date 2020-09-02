@@ -1,5 +1,7 @@
 // get all workout data from back-end
 
+// This fetch triggers a server route under the /api/workouts/range route, it grabs the data from the function that is in the route and so
+// We can make use of it here, this js file is linked to the stats.html file that is sent to the user under the /stats HTML route
 fetch("/api/workouts/range")
   .then(response => {
     return response.json();
