@@ -48,8 +48,11 @@ server.get("/api/workouts(/range)?", (req, res) => {
 server.put("/api/workouts/:id", (req, res) => {
     const { type, name, duration } = req.body;
     const { id } = req.params;
+    console.log(id);
     if (type === "cardio") {
         const { distance } = req.body;
+        console.log(req.body)
+        
         db.Workout.update({_id: mongojs.ObjectId(id)}, {day: Date.now(), $push: {exercises: [{type, name, duration, distance, weight: 0}]}})
         .then(workout => {
             res.json(workout);
@@ -57,8 +60,17 @@ server.put("/api/workouts/:id", (req, res) => {
         .catch(err => {
             res.json(err);
         });
-    } else if (type === "resistance")
-})
+    } else if (type === "resistance") {
+        const { weight, reps, sets } = req.body;
+        db.Workout.update({_id: mongojs.ObjectId(id)}, {day: Date.now(), $push: {exercises: [{type, name, duration, weight, reps, sets}]}})
+        .then(workout => {
+            res.json(workout);
+        })
+        .catch(err => {
+            res.json(err);
+        });
+    };
+});
 
 
 server.post("/api/workouts", (req, res) => {
