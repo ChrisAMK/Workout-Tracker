@@ -18,7 +18,7 @@ async function initWorkout() {
     renderNoWorkoutText()
   }
 }
-
+// I added this helper Function to get the total duration of the exercises since they were coming up as NaN
 function getTotalDuration(lastWorkout) {
   let total = 0
   for (i = 0; i < lastWorkout.exercises.length; i++) {
@@ -29,6 +29,8 @@ function getTotalDuration(lastWorkout) {
 
 function tallyExercises(exercises) {
   const tallied = exercises.reduce((acc, curr) => {
+    console.log(acc)
+    console.log(curr)
     if (curr.type === "resistance") {
       acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
       acc.totalSets = (acc.totalSets || 0) + curr.sets;
